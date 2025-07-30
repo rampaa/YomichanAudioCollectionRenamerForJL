@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 
 namespace YomichanAudioCollectionRenamerForJL;
@@ -13,6 +13,7 @@ file static class Program
         string? unzippedYomichanAudioCollectionUserFilesPath;
         while (true)
         {
+            Console.WriteLine("IMPORTANT: JL does not support the Opus format. Please ensure you've downloaded the MP3 version of Yomichan Audio Collection.");
             Console.WriteLine("Please enter the path of the 'user_files' folder found in the unzipped Yomichan Audio Collection folder.");
             unzippedYomichanAudioCollectionUserFilesPath = Console.ReadLine()?.Trim('"', ' ');
             if (!Directory.Exists(unzippedYomichanAudioCollectionUserFilesPath))
@@ -132,10 +133,12 @@ file static class Program
                 string audioFilePath = Path.Join(audioFolderPath, fileName);
                 if (File.Exists(audioFilePath))
                 {
+                    string extension = Path.GetExtension(audioFilePath);
+
                     string newAudioFilePath = Path.Join(saveDir,
                         fileNameToReading.TryGetValue(fileName, out string? reading)
-                            ? $"{reading} - {primarySpelling}.mp3"
-                            : $"{primarySpelling}.mp3");
+                            ? $"{reading} - {primarySpelling}{extension}"
+                            : $"{primarySpelling}{extension}");
 
                     if (!File.Exists(newAudioFilePath))
                     {
@@ -185,19 +188,27 @@ file static class Program
             {
                 foreach (JsonElement kanjiElement in kanjiArrayElement.EnumerateArray())
                 {
-                    string newAudioFilePath = Path.Join(saveDir, $"{reading} - {kanjiElement.GetString()!}.mp3");
-                    if (File.Exists(audioFilePath) && !File.Exists(newAudioFilePath))
+                    if (File.Exists(audioFilePath))
                     {
-                        File.Copy(audioFilePath, newAudioFilePath);
+                        string extension = Path.GetExtension(audioFilePath);
+                        string newAudioFilePath = Path.Join(saveDir, $"{reading} - {kanjiElement.GetString()!}{extension}");
+                        if (!File.Exists(newAudioFilePath))
+                        {
+                            File.Copy(audioFilePath, newAudioFilePath);
+                        }
                     }
                 }
             }
             else
             {
-                string newAudioFilePath = Path.Join(saveDir, $"{reading} - {reading}.mp3");
-                if (File.Exists(audioFilePath) && !File.Exists(newAudioFilePath))
+                if (File.Exists(audioFilePath))
                 {
-                    File.Copy(audioFilePath, newAudioFilePath);
+                    string extension = Path.GetExtension(audioFilePath);
+                    string newAudioFilePath = Path.Join(saveDir, $"{reading} - {reading}{extension}");
+                    if (!File.Exists(newAudioFilePath))
+                    {
+                        File.Copy(audioFilePath, newAudioFilePath);
+                    }
                 }
             }
         }
