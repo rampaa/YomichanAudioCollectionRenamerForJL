@@ -1,11 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <SelfContained>false</SelfContained>
+    <RollForward>LatestMinor</RollForward>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <Deterministic>true</Deterministic>
+    <CETCompat>false</CETCompat>
+
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <AnalysisLevel>10-all</AnalysisLevel>
+    <AssemblyName>YomichanAudioCollectionRenamerForJL</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AnalysisLevel>9-all</AnalysisLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <Authors>rampaa</Authors>
+    <RepositoryUrl>https://github.com/rampaa/YomichanAudioCollectionRenamerForJL</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>
