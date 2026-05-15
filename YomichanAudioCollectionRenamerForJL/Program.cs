@@ -13,7 +13,6 @@ file static class Program
         string? unzippedYomichanAudioCollectionUserFilesPath;
         while (true)
         {
-            Console.WriteLine("IMPORTANT: JL does not support the Opus format. Please ensure you've downloaded the MP3 version of Yomichan Audio Collection.");
             Console.WriteLine("Please enter the path of the 'user_files' folder found in the unzipped Yomichan Audio Collection folder.");
             unzippedYomichanAudioCollectionUserFilesPath = Console.ReadLine()?.Trim('"', ' ');
             if (!Directory.Exists(unzippedYomichanAudioCollectionUserFilesPath))
